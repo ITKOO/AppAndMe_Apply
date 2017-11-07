@@ -1,107 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>연습 페이지</title>
+    <!-- materialize의 각종 아이콘 집합 css -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize css -->
     <link rel = "stylesheet" type = "text/css" href = "css/materialize.css">
-    
+    <!-- index 페이지 관련 css -->
+    <link rel = "stylesheet" type = "text/css" href = "css/index.css">
   </head>
+
   <body>
-    <div class="row">
-      <form class="col s12">
-        <!-- 학년, 반, 번호 selectBox 선택 -->
+    <div class="container" >
+      <div class = "icon">
+          <center>
+          <br><img src = "img/app_logo.png">
+          </center>
+       </div><br>
 
-        <div class = "row">
-          <!-- 학년 선택 -->
-          <div class="input-field col s4">
-            <select>
-              <option value="" disabled selected>학년 선택</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+      <div class = "card" id="CARD"> 
+        <form id="FORM"> 
+          <br><br><br><br>
+             <form class="col s12">
+              <!-- 학년, 반, 번호 selectBox 선택 -->
 
-          <!-- 반 선택 -->
-          <div class="input-field col s4">
-              <select>
-                <option value="" disabled selected>반 선택</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>    
-              </select>
-            </div>
+              <div class = "row">
+                <!-- 학년 선택 -->
+                <div class="input-field col s4">
+                  <select>
+                    <option value="" disabled selected>학년 선택</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
 
-          <!-- 번호 선택  -->
-          <div class="input-field col s4">
-            <select>
-              <option value="" disabled selected>번호 선택</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-            </select>
-          </div>
+                <!-- 반 선택 -->
+                <div class="input-field col s4">
+                    <select>
+                      <option value="" disabled selected>반 선택</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>    
+                    </select>
+                  </div>
 
-        </div>
+                <!-- 번호 선택  -->
+                <div class="input-field col s4">
+                  <select>
+                    <option value="" disabled selected>번호 선택</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
 
-        <!-- 이름 입력 -->
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="email" type="email" class="validate">
-            <label for="email">이름을 입력해주세요.</label>
-          </div>
-        </div>
+              </div>
 
-        <!-- 5글자 표현 입력  -->
-        <div class="row">
-            <div class="input-field col s6">
-              <input id="EXPRESS_INPUT" type="text" data-length ="5">
-              <label for="EXPRESS_INPUT">자신을 5글자로 표현해주세요.</label>
-            </div>
-          </div>
+              <!-- 이름 입력 -->
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="email" type="email" class="validate">
+                  <label for="email">이름을 입력해주세요.</label>
+                </div>
+              </div>
 
-        <!-- 지원 동기 입력  -->
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="REASON_INPUT" class="materialize-textarea" data-length = "200"></textarea>
-            <label for="REASON_INPUT">앱앤미에 지원하게된 동기를 작성해주세요.(200자 내외)</label>
-          </div>
-        </div>
+              <!-- 5글자 표현 입력  -->
+              <div class="row">
+                  <div class="input-field col s6">
+                    <input id="EXPRESS_INPUT" type="text" data-length ="5">
+                    <label for="EXPRESS_INPUT">자신을 5글자로 표현해주세요.</label>
+                  </div>
+                </div>
 
-        <!-- 하고픈 일 입력 -->
-        <div class="row">
-            <div class="input-field col s12">
-              <textarea id="WANT_TO_DO_INPUT" class="materialize-textarea" data-length ="200"></textarea>
-              <label for="WANT_TO_DO_INPUT">앱앤미에 들어와서 하고 싶은 일을 작성해주세요.(200자 내외)</label>
-            </div>
-        </div>
+              <!-- 지원 동기 입력  -->
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="REASON_INPUT" class="materialize-textarea" data-length = "200"></textarea>
+                  <label for="REASON_INPUT">앱앤미에 지원하게된 동기를 작성해주세요.(200자 내외)</label>
+                </div>
+              </div>
 
-        <!-- 지원서 폼 전송 버튼 -->
-        <div class = "row">
-            <a id = "APPLY_BTN" class="waves-effect waves-light btn-large right">버 튼</a>
-        </div>
-      </form>
-    </div>
+              <!-- 하고픈 일 입력 -->
+              <div class="row">
+                  <div class="input-field col s12">
+                    <textarea id="WANT_TO_DO_INPUT" class="materialize-textarea" data-length ="200"></textarea>
+                    <label for="WANT_TO_DO_INPUT">앱앤미에 들어와서 하고 싶은 일을 작성해주세요.(200자 내외)</label>
+                  </div>
+              </div>
 
+              <!-- 지원서 폼 전송 버튼 -->
+            
+              <div class = "row">
+                <a id = "APPLY_BTN" class="waves-effect pink lighten-2 btn right"><i class="material-icons left">send</i>지 원 하 기</a>
+              </div> 
+              <br>
+            </form> <!-- size 지정 form -->      
+      </div> <!-- card div -->
+     </form>
+    </div> <!-- 컨테이너 div -->
+    
+    
     <!-- !!!!!!!!!!!!!!!!! script영역 !!!!!!!!!!!!!!!!!!!!!  -->
 
     <!-- firebase 관련 js -->
@@ -119,6 +140,7 @@
     <script src = "js/fireinit.js"></script>
 
     <!-- materialize 관련 js -->
+    <!-- <script src="js/materialize.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
     <script>

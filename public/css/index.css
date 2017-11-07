@@ -1,0 +1,23 @@
+#CONTENTS
+{ 
+    min-height: 1000px;
+}
+#FORM
+{
+    margin: 5%;
+}
+img
+{
+    width: 200px;
+    height: 200px;
+}
+
+body
+{
+    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+

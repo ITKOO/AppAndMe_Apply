@@ -1,40 +1,76 @@
-<html>
-        <head>
-           <title>The Materialize DatePicker Example</title>
-           <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
-          <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  
-    <!-- Compiled and minified JavaScript -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>CMP 로그인 페이지</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
+  <style> #CONTENTS{ min-height: 700px;}</style>
+
+</head>
+
+<body>
+
+
+<a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
+     
+ 
+<!-- /////////////////////////////////// javascript 스크립트 영역 /////////////////////////////////// -->
+ <!-- firebase 관련 js -->
+ <script src = "https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-auth.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-firestore.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-messaging.js"></script>
+
+ <!-- jquery 관련 js -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+ <!-- firebase config 관련 js -->
+ <script src = "js/fireinit.js"></script>
+
+ <!-- materialize 관련 js -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+ <script>
     
-        </head>
-        
-        <body class = "container">   
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-                <div class="row">
-                        <form class="col s12">
-                          <div class="row">
-                            <div class="input-field col s6">
-                              <input id="input_text" type="text" data-length="10">
-                              <label for="input_text">Input text</label>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>
-                              <label for="textarea1">Textarea</label>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
+          $(document).ready(function() 
+          {
+            console.log("ready");
+            // materialize 에서 selectbox가 보이게 할려면 이 코드를 반드시 작성
+            $('select').material_select();
+    
+             // 입력 창 밑에 몇 글자 작성했는지 체크
+            $('input#EXPRESS_INPUT, textarea#REASON_INPUT, textarea#WANT_TO_DO_INPUT').characterCounter();
+          });
+    
+         
+         
+          var database = firebase.database();
+         
+          var countRef = database.ref('Count/');
+    
+          $("#APPLY_BTN").click(function()
+          {
+            firebase.database().ref('Count/').set(
+            {
+             count : 1
+            });
+    
+          });
+    
+        // 반에 따라 과를 분류해 DB에 저장
+        // 학번을 합쳐서 DB 저장
+        // 지원동기 DB 저장
+        // 앱반에 들어와서 하고싶은 일 DB 저장
+        // 자신을 5글자 이내로 표현 한 것 일 DB 저장 
+      
+        </script>
 
-
-                      <script>
-                           $(document).ready(function() {
-    $('input#input_text, textarea#textarea1').characterCounter();
-  });
-       
-                      </script>
-        </body>   
-     </html>
+</body>
+</html>
