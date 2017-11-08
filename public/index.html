@@ -164,7 +164,7 @@
       {
         var studentID;
         var department;
-
+        var isGood; // 제대로 입력했는지 체크
         // select box에서 선택한 value 값 변수에 저장
         var grade_select = $("#GRADE_SELECT").val(); // 학년 선택
         var class_select = $("#CLASS_SELECT").val();  // 반 선택
@@ -174,6 +174,42 @@
         var express = $("#EXPRESS_INPUT").val(); // 자기자신 표현
         var reason = $("#REASON_INPUT").val(); // 지원동기
         var want_to_do = $("#WANT_TO_DO_INPUT").val(); // 들어오면 하고픈 일
+
+        // 유효성 체크(값이 없으면 쓰라고 alert창!)
+        if(grade_select == null || class_select == null || number_select == null)
+        {
+          alert("학년, 반, 번호를 선택해주세요.");
+          isGood = false;
+        }
+
+        else if(name == "")
+        {
+          alert("이름을 입력해주세요.");
+          isGood = false;
+        }
+
+        else if(express == "")
+        {
+          alert("자기자신을 5글자로 표현해주세요.");
+          isGood = false;
+        }
+
+        else if(reason == "")
+        {
+          alert("지원동기를 입력해주세요.");
+          isGood = false;
+        }
+
+        else if(want_to_do == "")
+        {
+          alert("앱앤미에 들어와서 하고싶은 일을 입력해주세요.");
+          isGood = false;
+        }
+
+        else
+        {
+          isGood = true;
+        }
 
         // 반으로 학과 구분하기
         if(class_select == 1 || class_select == 2)
@@ -201,29 +237,35 @@
         {
           studentID = grade_select.concat(class_select, number_select);
         }
-        
-        console.log("grade_select : " + grade_select);
-        console.log("class_select : " + class_select);
-        console.log("number_select : " + number_select);
-        console.log("studentID : " + studentID);
-        console.log("department : " + department);
-        console.log("name : " + name);
-        console.log("express : " + express);
-        console.log("reason : " + reason);
-        console.log("want_to_do : " + want_to_do);
-
+ 
         database = firebase.database();  
 
-        firebase.database().ref("AppandMe/Apply/" + studentID +"/Content").set(
+        if(isGood == true)
         {
-          studentID : studentID,
-          department : department,
-          name : name,
-          express : express,
-          reason : reason,
-          want_to_do : want_to_do         
-        });
-    
+          console.log("grade_select : " + grade_select);
+          console.log("class_select : " + class_select);
+          console.log("number_select : " + number_select);
+          console.log("studentID : " + studentID);
+          console.log("department : " + department);
+          console.log("name : " + name);
+          console.log("express : " + express);
+          console.log("reason : " + reason);
+          console.log("want_to_do : " + want_to_do);
+
+          firebase.database().ref("AppandMe/Apply/" + studentID +"/Content").set(
+          {
+            studentID : studentID,
+            department : department,
+            name : name,
+            express : express,
+            reason : reason,
+            want_to_do : want_to_do         
+          });
+
+          alert("앱앤미에 지원하신것을 축하드립니다!");
+          window.location.href="index.html";
+
+        } // end of if    
       }); // end of APPLY_BTN click
 
       // 똑같은 번호의 사람(동일 인물)이 재제출하는 것을 방지
