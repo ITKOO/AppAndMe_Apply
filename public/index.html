@@ -29,7 +29,7 @@
               <div class = "row">
                 <!-- 학년 선택 -->
                 <div class="input-field col s4">
-                  <select>
+                  <select id ="GRADE_SELECT">
                     <option value="" disabled selected>학년 선택</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -39,7 +39,7 @@
 
                 <!-- 반 선택 -->
                 <div class="input-field col s4">
-                    <select>
+                    <select id ="CLASS_SELECT">
                       <option value="" disabled selected>반 선택</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -52,7 +52,7 @@
 
                 <!-- 번호 선택  -->
                 <div class="input-field col s4">
-                  <select>
+                  <select id = "NUMBER_SELECT">
                     <option value="" disabled selected>번호 선택</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -81,15 +81,15 @@
 
               <!-- 이름 입력 -->
               <div class="row">
-                <div class="input-field col s6">
-                  <input id="email" type="email" class="validate">
-                  <label for="email">이름을 입력해주세요.</label>
+                <div class="input-field col s8">
+                  <input id="NAME_INPUT" type="text">
+                  <label for="NAME_INPUT">이름을 입력해주세요.</label>
                 </div>
               </div>
 
               <!-- 5글자 표현 입력  -->
               <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s8">
                     <input id="EXPRESS_INPUT" type="text" data-length ="5">
                     <label for="EXPRESS_INPUT">자신을 5글자로 표현해주세요.</label>
                   </div>
@@ -99,7 +99,7 @@
               <div class="row">
                 <div class="input-field col s12">
                   <textarea id="REASON_INPUT" class="materialize-textarea" data-length = "200"></textarea>
-                  <label for="REASON_INPUT">앱앤미에 지원하게된 동기를 작성해주세요.(200자 내외)</label>
+                  <label for="REASON_INPUT">앱앤미에 지원하게 된 동기를 작성해주세요.(200자 내외)</label>
                 </div>
               </div>
 
@@ -120,6 +120,11 @@
             </form> <!-- size 지정 form -->      
       </div> <!-- card div -->
      </form>
+
+     <center>
+       @ITKOO
+       <br>
+     </center>
     </div> <!-- 컨테이너 div -->
     
     
@@ -155,26 +160,73 @@
         $('input#EXPRESS_INPUT, textarea#REASON_INPUT, textarea#WANT_TO_DO_INPUT').characterCounter();
       });
 
-     
-     
-      var database = firebase.database();
-     
-      var countRef = database.ref('Count/');
-
       $("#APPLY_BTN").click(function()
       {
-        firebase.database().ref('Count/').set(
+        var studentID;
+        var department;
+
+        // select box에서 선택한 value 값 변수에 저장
+        var grade_select = $("#GRADE_SELECT").val(); // 학년 선택
+        var class_select = $("#CLASS_SELECT").val();  // 반 선택
+        var number_select = $("#NUMBER_SELECT").val(); // 번호 선택
+
+        var name = $("#NAME_INPUT").val(); // 학생 이름
+        var express = $("#EXPRESS_INPUT").val(); // 자기자신 표현
+        var reason = $("#REASON_INPUT").val(); // 지원동기
+        var want_to_do = $("#WANT_TO_DO_INPUT").val(); // 들어오면 하고픈 일
+
+        // 반으로 학과 구분하기
+        if(class_select == 1 || class_select == 2)
         {
-         count : 1
+          department = "뉴미디어소프트웨어과";
+        }
+
+        else if(class_select == 3 || class_select == 4)
+        {
+          department = "뉴미디어디자인과";
+        }
+
+        else
+        {
+          department = "뉴미디어웹솔루션과";
+        }
+
+        // 학번 표기 체크
+        if(number_select < 10)
+        {
+          studentID = grade_select.concat(class_select, "0", number_select);
+        }
+
+        else
+        {
+          studentID = grade_select.concat(class_select, number_select);
+        }
+        
+        console.log("grade_select : " + grade_select);
+        console.log("class_select : " + class_select);
+        console.log("number_select : " + number_select);
+        console.log("studentID : " + studentID);
+        console.log("department : " + department);
+        console.log("name : " + name);
+        console.log("express : " + express);
+        console.log("reason : " + reason);
+        console.log("want_to_do : " + want_to_do);
+
+        database = firebase.database();  
+
+        firebase.database().ref("AppandMe/Apply/" + studentID +"/Content").set(
+        {
+          studentID : studentID,
+          department : department,
+          name : name,
+          express : express,
+          reason : reason,
+          want_to_do : want_to_do         
         });
+    
+      }); // end of APPLY_BTN click
 
-      });
-
-    // 반에 따라 과를 분류해 DB에 저장
-    // 학번을 합쳐서 DB 저장
-    // 지원동기 DB 저장
-    // 앱반에 들어와서 하고싶은 일 DB 저장
-    // 자신을 5글자 이내로 표현 한 것 일 DB 저장 
+      // 똑같은 번호의 사람(동일 인물)이 재제출하는 것을 방지
   
     </script>
   </body>
