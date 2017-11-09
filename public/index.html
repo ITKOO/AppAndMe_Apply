@@ -99,7 +99,7 @@
               <div class="row">
                 <div class="input-field col s12">
                   <textarea id="REASON_INPUT" class="materialize-textarea" data-length = "200"></textarea>
-                  <label for="REASON_INPUT">앱앤미에 지원하게 된 동기를 작성해주세요.(200자 내외)</label>
+                  <label for="REASON_INPUT">지원하게 된 동기를 작성해주세요.(200자 내외)</label>
                 </div>
               </div>
 
@@ -107,7 +107,7 @@
               <div class="row">
                   <div class="input-field col s12">
                     <textarea id="WANT_TO_DO_INPUT" class="materialize-textarea" data-length ="200"></textarea>
-                    <label for="WANT_TO_DO_INPUT">앱앤미에 들어와서 하고 싶은 일을 작성해주세요.(200자 내외)</label>
+                    <label for="WANT_TO_DO_INPUT">입부 후 하고 싶은 일을 작성해주세요.(200자 내외)</label>
                   </div>
               </div>
 
@@ -202,7 +202,7 @@
 
         else if(want_to_do == "")
         {
-          alert("앱앤미에 들어와서 하고싶은 일을 입력해주세요.");
+          alert("입부 후 들어와서 하고싶은 일을 입력해주세요.");
           isGood = false;
         }
 
@@ -228,31 +228,52 @@
         }
 
         // 학번 표기 체크
-        if(number_select < 10)
-        {
-          studentID = grade_select.concat(class_select, "0", number_select);
-        }
-
-        else
-        {
-          studentID = grade_select.concat(class_select, number_select);
-        }
- 
-        database = firebase.database();  
-
         if(isGood == true)
         {
-          console.log("grade_select : " + grade_select);
-          console.log("class_select : " + class_select);
-          console.log("number_select : " + number_select);
-          console.log("studentID : " + studentID);
-          console.log("department : " + department);
-          console.log("name : " + name);
-          console.log("express : " + express);
-          console.log("reason : " + reason);
-          console.log("want_to_do : " + want_to_do);
+          if(number_select < 10)
+          {
+            studentID = grade_select.concat(class_select, "0", number_select);
+          } 
 
-          firebase.database().ref("AppandMe/Apply/" + studentID +"/Content").set(
+          else
+          {
+            studentID = grade_select.concat(class_select, number_select);
+          }
+        } // end of if
+
+        var applyRef = firebase.database().ref("AppandMe/Apply/" + studentID + "/Content");
+        var getApplyCountRef = firebase.database().ref("AppandMe/ApplyCount");
+        var applyListRef;
+        var applyCount; // 지원자 수
+        
+        if(isGood == true)
+        {
+          console.log("isGood : " + isGood);
+
+          getApplyCountRef.once('value', function(snapshot)
+          {
+            applyCount = snapshot.val().count;
+            console.log("Before applyCount : " + applyCount);
+            applyCount += 1; 
+            console.log("After applyCount : " + applyCount);
+
+            getApplyCountRef.set(
+            {
+              count : applyCount
+            });
+
+            applyListRef = firebase.database().ref("AppandMe/ApplyList/" + applyCount);
+            console.log("express : " + express);
+            applyListRef.set(
+            {
+              studentID : studentID,
+              name : name,
+              express : express
+            });
+
+          });
+
+          applyRef.set(
           {
             studentID : studentID,
             department : department,
@@ -260,10 +281,21 @@
             express : express,
             reason : reason,
             want_to_do : want_to_do         
-          });
+          }).then(function()
+          {
+            console.log("grade_select : " + grade_select);
+            console.log("class_select : " + class_select);
+            console.log("number_select : " + number_select);
+            console.log("studentID : " + studentID);
+            console.log("department : " + department);
+            console.log("name : " + name);
+            console.log("express : " + express);
+            console.log("reason : " + reason);
+            console.log("want_to_do : " + want_to_do);
 
-          alert("앱앤미에 지원하신것을 축하드립니다!");
-          window.location.href="index.html";
+            alert("앱앤미에 지원하신것을 축하드립니다!");
+            window.location.href="index.html";
+          });
 
         } // end of if    
       }); // end of APPLY_BTN click
