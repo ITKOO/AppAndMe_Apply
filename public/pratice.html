@@ -13,9 +13,11 @@
   </head>
 
   <body>
-    <div class="row">
-      <ul id="APPLY_LIST"></ul>
-    </div> 
+
+    <div class="btn deep-orange darken-1">
+        <!-- TODO 첨부파일 input 태그 확인 -->
+        <span>사진 파일선택</span><input type="file" id="UPLOAD_PHOTO">
+    </div>
     
     <!-- !!!!!!!!!!!!!!!!! script영역 !!!!!!!!!!!!!!!!!!!!!  -->
 
@@ -26,6 +28,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-storage.js"></script>
 
     <!-- jquery 관련 js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -38,55 +41,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script>
       
-      var applyCountRef = firebase.database().ref("AppandMe/ApplyCount");
-      var applyCount;
-      var getApplyRef;
+      console.log("js");
 
-      var name;
-      var studentID;
-      var express;
+      var storageRef = firebase.storage().ref();
 
-      applyCountRef.once('value', function(snapshot)
-      {
-        applyCount = snapshot.val().count;
-        console.log("count : " + applyCount);
-
-        for(var i = 1; i <= applyCount; i++)
-        {
-          getApplyRef = firebase.database().ref("AppandMe/ApplyList/" + i);
-          
-
-          getApplyRef.once('value', function(snapshot)
-          {  
-            name = snapshot.val().name;
-            studentID = snapshot.val().studentID;
-            express = snapshot.val().express;
-
-            var appendHTML = 
-                              '<li>'
-                                    +'<div class="col s12 m2">'
-                                        +'<div class="card">'
-                                            +'<div class="card-image">'
-                                                +'<img src="img/koo.jpg">'
-                                                +'<span class="card-title" id = "STUDENT_ID">'+ studentID + " " + name +'</span>'
-                                                +'</div>'
-                                                +'<div class="card-content">'
-                                                    +'<p id = "EXPRESS">' +express + '</p>'
-                                                  +'</div>'
-                                                  +'<div class="card-action">'
-                                                +'<a href="#">자세히 보기</a>'
-                                            +'</div>'
-                                          +'</div>'
-                                      +'</div>'
-                              +'</li>';
-            $("#APPLY_LIST").append(appendHTML);
-
-            console.log("studentID : " + name);
-            console.log("studentID : " + studentID);
-          }); // end of getApplyRef
-        } // end of for
-      }); // end of applyCountRef
- 
     </script>
     
   </body>
